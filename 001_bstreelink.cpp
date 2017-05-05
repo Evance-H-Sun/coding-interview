@@ -13,7 +13,7 @@ typedef struct bstree {
 
 pBstree startWalk(pBstree root);
 void walkTree(pBstree &head, pBstree &tail, pBstree root);
-void walkLink(pBstree);
+void walkLink(pBstree head);
 
 int main(void)
 {
@@ -58,14 +58,22 @@ void walkTree(pBstree &head, pBstree &tail, pBstree root) {
 	}
 	else {
 		walkTree(root->right,tail, root->right);
+        root->right->left = root;
 	}
 }
 
-void walkLink(pBstree root) {
+void walkLink(pBstree head) {
 	int i = 1;
-	while (root) {
-		printf("%d----%d\n",i,root->value);
+    pBstree end;
+	while (head) {
+		printf("%d----%d\n",i,head->value);
 		i++;
-		root = root->right;
+        end = head;
+		head = head->right;
 	}
+    while (end){
+        i--;
+        printf("%d----%d\n",i,end->value);
+        end = end->left;
+    }
 }
